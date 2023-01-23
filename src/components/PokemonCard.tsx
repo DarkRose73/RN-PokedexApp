@@ -52,7 +52,7 @@ export const PokemonCard = ({pokemon}: Props) => {
   return (
     <View>
       <TouchableOpacity
-        activeOpacity={0.7}
+        activeOpacity={0.9}
         onPress={() => {
           navigation.navigate(
             'PokemonScreen' as never,

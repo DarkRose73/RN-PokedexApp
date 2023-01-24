@@ -23,12 +23,16 @@ export const SearchScreen = () => {
     if (term.length === 0) {
       return setFilteredPokemons([]);
     }
-
-    setFilteredPokemons(
-      simplePokemonList.filter(poke =>
-        poke.name.toLowerCase().includes(term.toLowerCase()),
-      ),
-    );
+    if (isNaN(Number(term))) {
+      setFilteredPokemons(
+        simplePokemonList.filter(poke =>
+          poke.name.toLowerCase().includes(term.toLowerCase()),
+        ),
+      );
+    } else {
+      const pokemonById = simplePokemonList.find(poke => poke.id === term);
+      setFilteredPokemons(pokemonById ? [pokemonById] : []);
+    }
   }, [term]);
 
   if (isFetching) {

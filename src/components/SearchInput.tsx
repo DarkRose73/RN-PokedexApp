@@ -1,13 +1,27 @@
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet, Platform, StyleProp, ViewStyle} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useState, useEffect} from 'react';
+import {useDebounceValue} from '../hooks/useDebounceValue';
 
-export const SearchInput = () => {
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInput = ({style}: Props) => {
+  const [textValue, setTextValue] = useState('');
+  const debouncedValue = useDebounceValue(textValue);
+  useEffect(() => {
+    console.log(debouncedValue);
+  }, [debouncedValue]);
+
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, ...(style as any)}}>
       <View style={styles.textBackground}>
         <TextInput
+          value={textValue}
+          onChangeText={setTextValue}
           placeholder="Search Pokemon"
           style={{
             ...styles.textInput,
